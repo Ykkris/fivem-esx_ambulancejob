@@ -10,6 +10,10 @@ The fivem folder is a replacement for the default one with setAutoSpawn(false) f
 
 Import esx_ambulancejob.sql
 
+-- How To --
+
+Type [F6] in-game to bring ambulance menu
+
 -- Additonal Notes --
 
 ESX Ambulancejob is not compatible with es_freeroam.
