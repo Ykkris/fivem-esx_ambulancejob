@@ -38,6 +38,11 @@ end)
 
 RegisterServerEvent('esx_ambulancejob:revive')
 AddEventHandler('esx_ambulancejob:revive', function(playerId)
+
+	TriggerEvent('esx:getPlayerFromId', playerId, function(xPlayer)
+		xPlayer['revived'] = true
+	end)
+
 	TriggerClientEvent('esx_ambulancejob:revive', playerId)
 end)
 
@@ -49,6 +54,8 @@ end)
 RegisterServerEvent('esx_ambulancejob:onBeforeRespawn')
 AddEventHandler('esx_ambulancejob:onBeforeRespawn', function()
 	TriggerEvent('esx:getPlayerFromId', source, function(xPlayer)
+
+		xPlayer['revived'] = false
 
 		if Config.RemoveWeaponsAfterRPDeath then
 			xPlayer.loadout = {}
@@ -90,6 +97,7 @@ TriggerEvent('esx_phone:registerCallback', 'special', function(source, phoneNumb
 		TriggerEvent('esx:getPlayerFromId', source, function(xPlayer)
 			TriggerEvent('esx:getPlayers', function(xPlayers)
 				for k, v in pairs(xPlayers) do
+
 					if v.job.name == 'ambulance' then
 						RconPrint('Message => ' .. playerName .. ' ' .. message)
 						TriggerClientEvent('esx_phone:onMessage', v.player.source, xPlayer.phoneNumber, playerName, type, message, xPlayer.player.coords, {reply = 'Répondre', gps = 'GPS'})
